@@ -1,6 +1,6 @@
 # go-poseidon-p256
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/zkmopro/go-poseidon-p256.svg)](https://pkg.go.dev/github.com/zkmopro/go-poseidon-p256)
+[![Go Reference](https://pkg.go.dev/badge/github.com/zkmopro/go-poseidon-p256.svg)](https://pkg.go.dev/github.com/zkmopro/go-poseidon-p256) [![CI](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/ci.yml/badge.svg)](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/ci.yml) ![Go Version](https://img.shields.io/github/go-mod/go-version/zkmopro/go-poseidon-p256) ![License](https://img.shields.io/github/license/zkmopro/go-poseidon-p256)
 
 A pure-Go implementation of the [Poseidon hash function](https://eprint.iacr.org/2019/458) over the **P-256 (secp256r1) scalar field**.
 
