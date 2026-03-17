@@ -1,6 +1,5 @@
 # go-poseidon-p256
 
-[![CI](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/test.yml/badge.svg)](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/test.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/zkmopro/go-poseidon-p256.svg)](https://pkg.go.dev/github.com/zkmopro/go-poseidon-p256)
 
 A pure-Go implementation of the [Poseidon hash function](https://eprint.iacr.org/2019/458) over the **P-256 (secp256r1) scalar field**.
@@ -69,15 +68,6 @@ Results on Apple M3 chip using random 256-bit field elements:
 ## Security
 
 This implementation uses Go's `math/big` for field arithmetic, which is **not constant-time**. It is suitable for hashing public data in ZK circuits but should **not** be used for operations involving secret keys or other sensitive values where timing side-channels are a concern.
-
-## License
-
-Licensed under either of:
-
-- [MIT License](LICENSE-MIT)
-- [Apache License, Version 2.0](LICENSE-APACHE)
-
-at your option.
 
 ## References
 
