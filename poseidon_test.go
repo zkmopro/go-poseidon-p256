@@ -200,3 +200,116 @@ func TestHashGeneric(t *testing.T) {
 		t.Error("Hash(3 inputs) != Hash3")
 	}
 }
+
+func TestHash2NonCommutative(t *testing.T) {
+	pairs := [][2]*big.Int{
+		{big.NewInt(1), big.NewInt(2)},
+		{big.NewInt(42), big.NewInt(99)},
+		{big.NewInt(0), big.NewInt(1)},
+	}
+	for _, p := range pairs {
+		a, b := p[0], p[1]
+		if Hash2(a, b).Cmp(Hash2(b, a)) == 0 {
+			t.Errorf("Hash2(%s, %s) == Hash2(%s, %s), expected different", a, b, b, a)
+		}
+	}
+}
+
+func TestHash3NonCommutative(t *testing.T) {
+	a, b, c := big.NewInt(1), big.NewInt(2), big.NewInt(3)
+	h := Hash3(a, b, c)
+	// Swapping any pair should produce a different hash
+	if h.Cmp(Hash3(b, a, c)) == 0 {
+		t.Error("Hash3(a,b,c) == Hash3(b,a,c)")
+	}
+	if h.Cmp(Hash3(a, c, b)) == 0 {
+		t.Error("Hash3(a,b,c) == Hash3(a,c,b)")
+	}
+	if h.Cmp(Hash3(c, b, a)) == 0 {
+		t.Error("Hash3(a,b,c) == Hash3(c,b,a)")
+	}
+}
+
+func TestHashAvalanche(t *testing.T) {
+	a := big.NewInt(42)
+	b := big.NewInt(99)
+	h1 := Hash2(a, b)
+
+	// Flip one bit in input a
+	aFlipped := new(big.Int).Xor(a, big.NewInt(1))
+	h2 := Hash2(aFlipped, b)
+
+	// Count differing bits
+	diff := new(big.Int).Xor(h1, h2)
+	bitsChanged := 0
+	for _, word := range diff.Bits() {
+		for word != 0 {
+			bitsChanged++
+			word &= word - 1
+		}
+	}
+
+	// Expect at least 25% of 256 bits to differ (weak avalanche check)
+	if bitsChanged < 64 {
+		t.Errorf("avalanche: only %d/256 bits changed, expected at least 64", bitsChanged)
+	}
+}
+
+func TestNoMutationHash3(t *testing.T) {
+	a := big.NewInt(10)
+	b := big.NewInt(20)
+	c := big.NewInt(30)
+	aCopy := new(big.Int).Set(a)
+	bCopy := new(big.Int).Set(b)
+	cCopy := new(big.Int).Set(c)
+	Hash3(a, b, c)
+	if a.Cmp(aCopy) != 0 {
+		t.Error("Hash3 mutated input a")
+	}
+	if b.Cmp(bCopy) != 0 {
+		t.Error("Hash3 mutated input b")
+	}
+	if c.Cmp(cCopy) != 0 {
+		t.Error("Hash3 mutated input c")
+	}
+}
+
+func TestHashPanicCases(t *testing.T) {
+	cases := []struct {
+		name   string
+		inputs []*big.Int
+	}{
+		{"OneInput", []*big.Int{big.NewInt(1)}},
+		{"FourInputs", []*big.Int{big.NewInt(1), big.NewInt(2), big.NewInt(3), big.NewInt(4)}},
+		{"ZeroInputs", []*big.Int{}},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			defer func() {
+				if r := recover(); r == nil {
+					t.Errorf("expected panic for Hash with %d inputs", len(tc.inputs))
+				}
+			}()
+			Hash(tc.inputs)
+		})
+	}
+}
+
+func TestHashOutputInField(t *testing.T) {
+	inputs := [][2]*big.Int{
+		{big.NewInt(0), big.NewInt(0)},
+		{big.NewInt(1), big.NewInt(2)},
+		{new(big.Int).Sub(ORDER, big.NewInt(1)), new(big.Int).Sub(ORDER, big.NewInt(2))},
+	}
+	for _, pair := range inputs {
+		h := Hash2(pair[0], pair[1])
+		if h.Sign() < 0 || h.Cmp(ORDER) >= 0 {
+			t.Errorf("Hash2 output %s not in [0, ORDER)", h.Text(16))
+		}
+	}
+	// Also check Hash3
+	h3 := Hash3(big.NewInt(1), big.NewInt(2), big.NewInt(3))
+	if h3.Sign() < 0 || h3.Cmp(ORDER) >= 0 {
+		t.Errorf("Hash3 output %s not in [0, ORDER)", h3.Text(16))
+	}
+}
