@@ -2,9 +2,9 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/zkmopro/go-poseidon-p256.svg)](https://pkg.go.dev/github.com/zkmopro/go-poseidon-p256) [![CI](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/ci.yml/badge.svg)](https://github.com/zkmopro/go-poseidon-p256/actions/workflows/ci.yml) ![Go Version](https://img.shields.io/github/go-mod/go-version/zkmopro/go-poseidon-p256) ![License](https://img.shields.io/github/license/zkmopro/go-poseidon-p256)
 
-A pure-Go implementation of the [Poseidon hash function](https://eprint.iacr.org/2019/458) over the **P-256 (secp256r1) scalar field**.
+A pure-Go implementation of the [Poseidon hash function](https://eprint.iacr.org/2019/458) over the **P-256 (secp256r1) base field**.
 
-Poseidon is an arithmetic-friendly hash function designed for zero-knowledge proof systems. This implementation targets the P-256 scalar field, making it suitable for ZK applications that operate over the NIST P-256 curve (e.g., proving ECDSA signature validity).
+Poseidon is an arithmetic-friendly hash function designed for zero-knowledge proof systems. This implementation targets the P-256 base field, making it compatible with circom circuits using `--prime secq256r1` (e.g., proving ECDSA signature validity).
 
 ## Installation
 
@@ -48,7 +48,7 @@ func main() {
 | `Hash(inputs []*big.Int) *big.Int` | Generic hash for 2 or 3 inputs |
 | `GenConstants(t, roundsFull, roundsPartial int)` | Generate Poseidon round constants and MDS matrix |
 
-Inputs are automatically reduced modulo the P-256 scalar field order. Results are in `[0, ORDER)`.
+Inputs are automatically reduced modulo the P-256 base field order. Results are in `[0, ORDER)`.
 
 ## Benchmarks
 
