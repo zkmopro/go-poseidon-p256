@@ -2,9 +2,9 @@ package poseidon
 
 import "math/big"
 
-// ORDER is the base field order of secp256r1 (P-256).
+// ORDER is the scalar field order of secp256r1 (P-256).
 var ORDER = func() *big.Int {
-	n, _ := new(big.Int).SetString("FFFFFFFF00000001000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF", 16)
+	n, _ := new(big.Int).SetString("FFFFFFFF00000000FFFFFFFFFFFFFFFFBCE6FAADA7179E84F3B9CAC2FC632551", 16)
 	return n
 }()
 

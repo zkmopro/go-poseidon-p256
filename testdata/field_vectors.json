@@ -1,10 +1,10 @@
 {
-  "order": "0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff",
+  "order": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551",
   "add": [
     {
       "a": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
       "b": "0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321",
-      "result": "0x1111108318111110111110821811111111111081181111111111108218111111"
+      "result": "0x11111083181111101111108218111111542a15d470f9728c1d5745bf1badebbf"
     },
     {
       "a": "0x0",
@@ -12,12 +12,12 @@
       "result": "0x0"
     },
     {
-      "a": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
+      "a": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
       "b": "0x1",
       "result": "0x0"
     },
     {
-      "a": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
+      "a": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
       "b": "0x2",
       "result": "0x1"
     }
@@ -26,7 +26,7 @@
     {
       "a": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
       "b": "0xfedcba0987654321fedcba0987654321fedcba0987654321fedcba0987654321",
-      "result": "0x30f7a9d8a7a6051f213ee09c7b80ef9c6c5177f341f956733e54855f4154e4c4"
+      "result": "0x544b326fbeea4277596e4d77c0b32a161afcf4d420603366e90af5b3a4277657"
     },
     {
       "a": "0x0",
@@ -39,21 +39,21 @@
       "result": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
     },
     {
-      "a": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
-      "b": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
+      "a": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
+      "b": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
       "result": "0x1"
     }
   ],
   "neg": [
     {
       "a": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      "result": "0xedcba9866f543211edcba9876f543210edcba9886f543210edcba9876f543210"
+      "result": "0xedcba9866f543211edcba9876f543210aab2a435166bd095e185744a6bb75762"
     }
   ],
   "inv": [
     {
       "a": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      "result": "0x8056a93bbc74c29585a874f6b858572477c5f7aa71a2d0b0416f09ed94008b74"
+      "result": "0xddbe67fb14714ab5c0d909913a16bb6a2af63adfab8d3a5be98658011a910777"
     },
     {
       "a": "0x1",
@@ -61,7 +61,7 @@
     },
     {
       "a": "0x2",
-      "result": "0x7fffffff80000000800000000000000000000000800000000000000000000000"
+      "result": "0x7fffffff800000007fffffffffffffffde737d56d38bcf4279dce5617e3192a9"
     }
   ],
   "sbox5": [
@@ -79,25 +79,25 @@
     },
     {
       "input": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-      "result": "0xbe54141b68d8a3f3394977974402e472d8d87f971655d9fae5e1dbbdc147dcf"
+      "result": "0xdcf21e0c5afa040b167053581b4af65b500d2da9a80dc61cc6f42aa621a0da69"
     },
     {
-      "input": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
-      "result": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe"
+      "input": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
+      "result": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550"
     }
   ],
   "create": [
     {
-      "input": "0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff",
+      "input": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551",
       "result": "0x0"
     },
     {
-      "input": "0xffffffff00000001000000000000000000000001000000000000000000000000",
+      "input": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632552",
       "result": "0x1"
     },
     {
-      "input": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe",
-      "result": "0xffffffff00000001000000000000000000000000fffffffffffffffffffffffe"
+      "input": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550",
+      "result": "0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632550"
     },
     {
       "input": "0x0",
@@ -124,9 +124,9 @@
       "0x2a"
     ],
     "results": [
-      "0x8056a93bbc74c29585a874f6b858572477c5f7aa71a2d0b0416f09ed94008b74",
-      "0xfb198e75f997f6f638ad0233abedfa62e2838652c1f5d512f494776403e91638",
-      "0xb0c30c3012492492f9e79e79e79e79e79e79e79f2aaaaaaaaaaaaaaaaaaaaaaa"
+      "0xddbe67fb14714ab5c0d909913a16bb6a2af63adfab8d3a5be98658011a910777",
+      "0xee4164889898a22fd9fbd4efd0ab76e54f6de626816b0d6796f2efe3b1c25759",
+      "0x8c30c30ba49249251e79e79e79e79e79c2e0032e55685ce74884382dd35add94"
     ]
   }
 }

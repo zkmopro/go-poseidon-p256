@@ -13,7 +13,7 @@ func ExampleHash2() {
 	h := poseidon.Hash2(a, b)
 	fmt.Printf("0x%s\n", h.Text(16))
 	// Output:
-	// 0x66ac887f89cc1740dab07d27b8fe70c153a2728c4a69bc73a457677bca1ee5c7
+	// 0x20390b3870f5480a3fd0cc5ba71ba0c2930faeba9f5b7cb639b863f2c30ec415
 }
 
 func ExampleHash3() {
@@ -23,5 +23,5 @@ func ExampleHash3() {
 	h := poseidon.Hash3(a, b, c)
 	fmt.Printf("0x%s\n", h.Text(16))
 	// Output:
-	// 0x3aa328978565e3e21352ab59da9386b222c739c23436e59535af2aaaf507b417
+	// 0xb5b1978a26f5990a05bd9ed83ce3a101ad5778ab09db7c3c0f2667b9ad2be13f
 }

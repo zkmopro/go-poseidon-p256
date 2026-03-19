@@ -13,7 +13,7 @@ import { Field } from "@noble/curves/abstract/modular";
 import { grainGenConstants, poseidon } from "@noble/curves/abstract/poseidon";
 
 const ORDER =
-  0xffffffff00000001000000000000000000000000ffffffffffffffffffffffffn;
+  0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551n;
 const Fp = Field(ORDER);
 
 const ROUNDS_FULL = 8;
