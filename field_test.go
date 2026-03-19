@@ -250,8 +250,9 @@ func TestFpAlgebraicProperties(t *testing.T) {
 
 	t.Run("DoubleNegation", func(t *testing.T) {
 		for _, a := range elems {
-			if fpNeg(fpNeg(a)).Cmp(fpCreate(a)) != 0 {
-				t.Errorf("fpNeg(fpNeg(%s)) != %s", a.Text(16), a.Text(16))
+			want := fpCreate(a)
+			if fpNeg(fpNeg(a)).Cmp(want) != 0 {
+				t.Errorf("fpNeg(fpNeg(%s)) != %s", a.Text(16), want.Text(16))
 			}
 		}
 	})
@@ -261,8 +262,9 @@ func TestFpAlgebraicProperties(t *testing.T) {
 			if a.Sign() == 0 {
 				continue
 			}
-			if fpInv(fpInv(a)).Cmp(fpCreate(a)) != 0 {
-				t.Errorf("fpInv(fpInv(%s)) != %s", a.Text(16), a.Text(16))
+			want := fpCreate(a)
+			if fpInv(fpInv(a)).Cmp(want) != 0 {
+				t.Errorf("fpInv(fpInv(%s)) != %s", a.Text(16), want.Text(16))
 			}
 		}
 	})
@@ -355,6 +357,21 @@ func TestFpInvertBatchEdgeCases(t *testing.T) {
 			if prod.Cmp(big.NewInt(1)) != 0 {
 				t.Errorf("batch[%d] * original != 1", i)
 			}
+		}
+	})
+
+	t.Run("ContainsZero", func(t *testing.T) {
+		// Zero inputs are skipped by fpInvertBatch; result[i] is nil for zero inputs.
+		vals := []*big.Int{big.NewInt(7), big.NewInt(0), big.NewInt(13)}
+		batch := fpInvertBatch(vals)
+		if batch[1] != nil {
+			t.Error("expected nil for zero input")
+		}
+		if batch[0].Cmp(fpInv(big.NewInt(7))) != 0 {
+			t.Error("batch[0] wrong")
+		}
+		if batch[2].Cmp(fpInv(big.NewInt(13))) != 0 {
+			t.Error("batch[2] wrong")
 		}
 	})
 }
