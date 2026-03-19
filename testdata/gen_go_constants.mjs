@@ -26,7 +26,7 @@ function formatMDS(data, varName) {
 
 console.log(`package poseidon
 
-// Auto-generated Poseidon constants for P-256 scalar field.
+// Auto-generated Poseidon constants for P-256 base field.
 // Generated from @noble/curves Grain LFSR.
 
 `);
