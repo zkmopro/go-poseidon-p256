@@ -2,6 +2,7 @@ package poseidon
 
 import (
 	"encoding/json"
+	"math/big"
 	"os"
 	"testing"
 )
@@ -76,6 +77,56 @@ func TestGrainConstantsT4(t *testing.T) {
 				t.Fatalf("mds[%d][%d]: got %s, want %s", i, j, mds[i][j].Text(16), want.Text(16))
 			}
 		}
+	}
+}
+
+func TestConstantsInField(t *testing.T) {
+	configs := []*poseidonConfig{configT3, configT4}
+	for _, cfg := range configs {
+		for i, row := range cfg.roundConstants {
+			for j, val := range row {
+				if val.Sign() < 0 || val.Cmp(ORDER) >= 0 {
+					t.Errorf("T%d rc[%d][%d] = %s not in [0, ORDER)", cfg.t, i, j, val.Text(16))
+				}
+			}
+		}
+		for i, row := range cfg.mds {
+			for j, val := range row {
+				if val.Sign() < 0 || val.Cmp(ORDER) >= 0 {
+					t.Errorf("T%d mds[%d][%d] = %s not in [0, ORDER)", cfg.t, i, j, val.Text(16))
+				}
+			}
+		}
+	}
+}
+
+func TestMDSNotIdentity(t *testing.T) {
+	configs := []*poseidonConfig{configT3, configT4}
+	for _, cfg := range configs {
+		isIdentity := true
+		for i, row := range cfg.mds {
+			for j, val := range row {
+				if i == j {
+					if val.Cmp(big.NewInt(1)) != 0 {
+						isIdentity = false
+					}
+				} else {
+					if val.Sign() != 0 {
+						isIdentity = false
+					}
+				}
+			}
+		}
+		if isIdentity {
+			t.Errorf("T%d MDS matrix is the identity (insecure)", cfg.t)
+		}
+	}
+}
+
+func TestConstantsT3T4Differ(t *testing.T) {
+	// First round constant of T3 and T4 should differ
+	if configT3.roundConstants[0][0].Cmp(configT4.roundConstants[0][0]) == 0 {
+		t.Error("T3 and T4 first round constant are identical")
 	}
 }
 
